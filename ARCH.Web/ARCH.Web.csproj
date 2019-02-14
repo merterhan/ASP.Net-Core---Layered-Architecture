@@ -8,6 +8,19 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ARCH.Business\ARCH.Business.csproj" />
+    <ProjectReference Include="..\ARCH.Core\ARCH.Core.csproj" />
+    <ProjectReference Include="..\ARCH.DataAccess\ARCH.DataAccess.csproj" />
+    <ProjectReference Include="..\ARCH.Entities\ARCH.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Shared\Data\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

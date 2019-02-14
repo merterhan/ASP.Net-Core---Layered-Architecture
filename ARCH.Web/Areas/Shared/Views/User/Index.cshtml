@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ARCH.Entities.Concrete.User>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="card card-transparent">
+    <div class="card-header ">
+        <div class="card-title">
+            Pages Default Tables Style
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="basicTable">
+                <thead>
+                    <tr>
+                        <th style="width:1%" class="text-center">
+                            <button class="btn btn-link">
+                                <i class="pg-trash"></i>
+                            </button>
+                        </th>
+                        <th style="width:20%">
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th style="width:20%">
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+                        <th style="width:29%">
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th style="width:15%">
+                            @Html.DisplayNameFor(model => model.BirthDate)
+                        </th>
+                        <th style="width:15%">
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+</div>
