@@ -51,6 +51,10 @@ namespace ARCH.Web
 
             //transient: A kullanıcısı aynı anda iki XXManager'a ihtiyaç duyarsa.Onun için aynı XXManager oluşturuluğ değiştirilir.
             //Transient'te aynı kullanıcı aynı anda tek requestte iki XXManager'a ihtiyaç duyarsa iki ayrı PM Oluşturulur.
+
+            //uygulamada session kullanacağımız bilgisini oluşturalum
+            services.AddSession();
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +79,9 @@ namespace ARCH.Web
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
+
+            //session orta-katmanını projeye ekleyelim
+            app.UseSession();
         }
     }
 }

@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Shared\Data\" />
+    <Folder Include="TagHelpers\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
