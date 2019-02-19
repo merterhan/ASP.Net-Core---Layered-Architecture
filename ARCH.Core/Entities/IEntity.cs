@@ -8,6 +8,6 @@ namespace ARCH.Core.Entities
     public interface IEntity
     {
         [Key]
-        int Id { get; }
+        Guid Id { get; }
     }
 }

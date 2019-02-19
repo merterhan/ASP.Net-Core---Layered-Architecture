@@ -6,6 +6,7 @@ using ARCH.Business.Abstract;
 using ARCH.Business.Concrete;
 using ARCH.DataAccess.Abstract;
 using ARCH.DataAccess.Concrete.EntityFramework;
+using ARCH.Web.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -54,7 +55,11 @@ namespace ARCH.Web
 
             //uygulamada session kullanacağımız bilgisini oluşturalum
             services.AddSession();
-            services.AddMemoryCache();
+            services.AddDistributedMemoryCache();
+
+            services.AddDbContext<CustomIdentityDbContext>(options => options.UseSqlServer(@"Data Source=10.1.1.78;Initial Catalog=TESTCORE;User ID=TCDDFiberTitresim_User;Password=1qaz-2wsx."));
+            services.AddIdentity<CustomIdentityUser, CustomIdentityRole>().AddEntityFrameworkStores<CustomIdentityDbContext>()
+                .AddDefaultTokenProviders(); //kullanıcı bilgilerinin sayfalar arası geçiş yaparken kullandığı bir servis
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +76,10 @@ namespace ARCH.Web
 
             //default olarak Home/Index'e gider
             //app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
 
             app.UseMvc(routes =>
             {
@@ -82,6 +91,7 @@ namespace ARCH.Web
 
             //session orta-katmanını projeye ekleyelim
             app.UseSession();
+            app.UseAuthentication();
         }
     }
 }

@@ -16,18 +16,17 @@ namespace ARCH.Business.Concrete
         {
             _userDal = userDal;
         }
+        //end dependency injection
 
         public void Add(User user)
         {
             _userDal.Add(user);
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
-            _userDal.Delete(id);
+            _userDal.Delete(new User(){ Id = id});
         }
-
-        //end dependency injection
 
         public List<User> GetAll()
         {
