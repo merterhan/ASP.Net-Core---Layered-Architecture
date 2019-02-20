@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using ARCH.Business.Abstract;
@@ -11,6 +12,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,7 +39,11 @@ namespace ARCH.Web
             //dependency injection burada gerçekleştiriliyor.
 
             services.AddDbContext<ARCHContext>();
-            services.AddMvc();
+            //Localization
+            services.AddLocalization(o => o.ResourcesPath = "Resources");
+            services.AddMvc()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
 
             //dependency injection desenini yapılandıralım. servisleri buraya ekleyeceğiz.
             //IXXservice isteyen bir controller varsa ona XXManager örneği oluştur ona ver. sen new'le.
@@ -60,6 +67,7 @@ namespace ARCH.Web
             services.AddDbContext<CustomIdentityDbContext>(options => options.UseSqlServer(@"Data Source=10.1.1.78;Initial Catalog=TESTCORE;User ID=TCDDFiberTitresim_User;Password=1qaz-2wsx."));
             services.AddIdentity<CustomIdentityUser, CustomIdentityRole>().AddEntityFrameworkStores<CustomIdentityDbContext>()
                 .AddDefaultTokenProviders(); //kullanıcı bilgilerinin sayfalar arası geçiş yaparken kullandığı bir servis
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +81,34 @@ namespace ARCH.Web
             }
 
             app.UseStaticFiles();
+
+            //Localization
+            IList<CultureInfo> supportedCultures = new List<CultureInfo>
+            {
+                new CultureInfo("tr-TR"),
+                new CultureInfo("en-US")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions()
+            {
+                DefaultRequestCulture = new RequestCulture("tr-TR"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures,
+                //TODO RequestCultureProviders çalışıyor mu kontrol edilecek
+                RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                    new CustomRequestCultureProvider(async context =>
+                    {
+                        return new ProviderCultureResult("tr-TR");
+                    }),
+                    new CustomRequestCultureProvider(async context =>
+                    {
+                        return new ProviderCultureResult("en-US");
+                    }),
+
+                }
+            });
+            //end_Localization
 
             //default olarak Home/Index'e gider
             //app.UseMvcWithDefaultRoute();

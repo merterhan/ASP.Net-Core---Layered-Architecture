@@ -11,5 +11,7 @@ namespace ARCH.Web.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        public string PhoneNumber { get; internal set; }
     }
 }

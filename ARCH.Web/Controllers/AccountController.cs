@@ -2,6 +2,7 @@
 using ARCH.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace ARCH.Web.Controllers
 {
@@ -10,6 +11,7 @@ namespace ARCH.Web.Controllers
         private readonly UserManager<CustomIdentityUser> _userManager;
         private readonly RoleManager<CustomIdentityRole> _roleManager;
         private readonly SignInManager<CustomIdentityUser> _signInManager;
+        private readonly IStringLocalizer<AccountController> _localizer;
 
         public AccountController(UserManager<CustomIdentityUser> userManager, RoleManager<CustomIdentityRole> roleManager, SignInManager<CustomIdentityUser> signInManager)
         {
@@ -32,7 +34,8 @@ namespace ARCH.Web.Controllers
                 CustomIdentityUser user = new CustomIdentityUser
                 {
                     UserName = registerViewModel.UserName,
-                    Email = registerViewModel.Email
+                    Email = registerViewModel.Email,
+                    PhoneNumber =  registerViewModel.PhoneNumber
                 };
 
                 IdentityResult result = _userManager.CreateAsync(user, registerViewModel.Password).Result;
@@ -50,7 +53,7 @@ namespace ARCH.Web.Controllers
 
                         if (!roleResult.Succeeded)
                         {
-                            ModelState.AddModelError("", "We can not add the role!");
+                            ModelState.AddModelError("", _localizer["Sorry! We can not add the role"]);
                             return View(registerViewModel);
                         }
                     }
