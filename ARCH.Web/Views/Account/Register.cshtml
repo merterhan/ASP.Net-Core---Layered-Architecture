@@ -1,5 +1,8 @@
 ﻿@using System.Threading.Tasks
+@using Microsoft.AspNetCore.Mvc.Localization
+
 @model ARCH.Web.Models.RegisterViewModel
+@inject IViewLocalizer Localizer
 
 @{
     Layout = null;
@@ -10,7 +13,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
-    <title>Kayıt Ol</title>
+    <title>@Localizer["Register"]</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
     <script src="../../../../cdn-cgi/apps/head/QJpHOqznaMvNOv9CGoAdo_yvYKU.js"></script>
     <link rel="apple-touch-icon" href="~/pages/ico/60.png">
@@ -32,7 +35,7 @@
     <link href="~/pages/css/pages-icons.css" rel="stylesheet" type="text/css">
     <link class="main-stylesheet" href="~/pages/css/pages.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
-    window.onload = function () {
+        window.onload = function () {
             // fix for windows 8
             if (navigator.appVersion.indexOf("Windows NT 6.2") != -1)
                 document.head.innerHTML += '<link rel="stylesheet" type="text/css" href="~/pages/css/windows.chrome.fix.css" />'
@@ -46,28 +49,31 @@
             <p>
                 Yeni bir hesap oluşturun Facebook hesabınız varsa onunla kaydolabilirsiniz. Giriş Yap <a href="#" class="text-info">Facebook</a> veya <a href="#" class="text-info">Google</a>
             </p>
-            <form asp-controller="Account" asp-action="Register" method="post" id="form-register" class="p-t-15" role="form">
+            <form asp-controller="Account" asp-action="Register" method="post" class="p-t-15" role="form">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group form-group-default">
-                            <label>Kullanıcı Adı</label>
-                            <input asp-for="UserName" type="text" name="uname" placeholder="Kullanıcı Adı" class="form-control" required>
+                            <label asp-for="UserName">@Localizer["User Name"]</label>
+                            <input asp-for="UserName" type="text" placeholder="@Localizer["User Name"]" class="form-control" required>
+                            <span asp-validation-for="UserName"></span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group form-group-default">
-                            <label>Parola</label>
-                            <input type="password" name="pass" placeholder="En az 4 karakterli bir şifre oluştun" class="form-control" required>
+                            <label asp-for="Password">@Localizer["Password"]</label>
+                            <input asp-for="Password" type="password" placeholder="En az 4 karakterli bir şifre oluştun" class="form-control" required>
+                            <span asp-validation-for="Password"></span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group form-group-default">
-                            <label>Email</label>
-                            <input type="email" name="email" placeholder="Size giriş bilgilerinizi göndereceğiz" class="form-control" required>
+                            <label asp-for="Email">@Localizer["Email"]</label>
+                            <input asp-for="Email" type="email" placeholder="Size giriş bilgilerinizi göndereceğiz" class="form-control" required>
+                            <span asp-validation-for="Email"></span>
                         </div>
                     </div>
                 </div>
@@ -76,16 +82,18 @@
                         <p><small>I agree to the <a href="#" class="text-info">Pages Terms</a> and <a href="#" class="text-info">Privacy</a>.</small></p>
                     </div>
                     <div class="col-lg-6 text-right">
-                        <a href="#" class="text-info small">Yardıma ihtiyacım var!</a>
+                        <a asp-controller="Account" asp-action="Login" class="text-info">@Localizer["Login"]</a>
                     </div>
                 </div>
-                <button class="btn btn-primary btn-cons m-t-10" type="submit">Yeni bir hesap oluştur</button>
+                <button class="btn btn-primary btn-cons m-t-10" type="submit" value="Register">@Localizer["Sign Up"]</button>
             </form>
         </div>
     </div>
 
     <script src="~/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
-    <script src="~/assets/plugins/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
+    @*<script src="~/assets/plugins/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+
     <script src="~/assets/plugins/modernizr.custom.js" type="text/javascript"></script>
     <script src="~/assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
     <script src="~/assets/plugins/popper/umd/popper.min.js" type="text/javascript"></script>
@@ -98,11 +106,15 @@
     <script type="text/javascript" src="~/assets/plugins/select2/js/select2.full.min.js"></script>
     <script type="text/javascript" src="~/assets/plugins/classie/classie.js"></script>
     <script src="~/assets/plugins/switchery/js/switchery.min.js" type="text/javascript"></script>
-    <script src="~/assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
-    <script src="~/pages/js/pages.min.js"></script>
-    <script>
-    $(function () {
-            $('#form-register').validate()
-        })</script>
+    @*<script src="~/assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.6/jquery.validate.unobtrusive.js" type="text/javascript"></script>
+
+
+    @*<script src="~/pages/js/pages.min.js"></script>*@
+    @*<script>
+        $(function () {
+                $('#form-register').validate()
+            })</script>*@
 </body>
 </html>

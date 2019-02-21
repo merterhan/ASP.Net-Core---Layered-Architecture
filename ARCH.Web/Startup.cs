@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +23,6 @@ namespace ARCH.Web
 {
     public class Startup
     {
-
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -43,12 +43,13 @@ namespace ARCH.Web
             services.AddLocalization(o => o.ResourcesPath = "Resources");
             services.AddMvc()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization();
+                .AddDataAnnotationsLocalization()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //dependency injection desenini yapılandıralım. servisleri buraya ekleyeceğiz.
             //IXXservice isteyen bir controller varsa ona XXManager örneği oluştur ona ver. sen new'le.
-            services.AddScoped<IUserService, UserManager>();
-            services.AddScoped<IUserDal, EFUserDal>();
+            services.AddScoped<IDepartmentService, DepartmantManager>();
+            services.AddScoped<IDepartmentDal, EFDepartmentDal>();
 
             //servisler transient, scoped veya singleton olabilir. 
             //servisler singleton olarak tanımlansaydı: iki kullanıcı sunucuya istek bulunduğu zaman manager örneği oluşturur.
@@ -64,7 +65,9 @@ namespace ARCH.Web
             services.AddSession();
             services.AddDistributedMemoryCache();
 
-            services.AddDbContext<CustomIdentityDbContext>(options => options.UseSqlServer(@"Data Source=10.1.1.78;Initial Catalog=TESTCORE;User ID=TCDDFiberTitresim_User;Password=1qaz-2wsx."));
+            //services.AddDbContext<CustomIdentityDbContext>(options => options.UseSqlServer(@"Data Source=10.1.1.78;Initial Catalog=TESTCORE;User ID=TCDDFiberTitresim_User;Password=1qaz-2wsx."));
+            services.AddDbContext<CustomIdentityDbContext>(options => options.UseMySql(@"Server=89.163.242.38;Port=3306;Database=cagrierh_coredb;Uid=cagrierh_admin;Pwd=cagri123456;"));
+
             services.AddIdentity<CustomIdentityUser, CustomIdentityRole>().AddEntityFrameworkStores<CustomIdentityDbContext>()
                 .AddDefaultTokenProviders(); //kullanıcı bilgilerinin sayfalar arası geçiş yaparken kullandığı bir servis
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ARCH.Web.Migrations
 {
     [DbContext(typeof(CustomIdentityDbContext))]
-    [Migration("20190220060944_Identity")]
-    partial class Identity
+    [Migration("20190221065354_identity")]
+    partial class identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

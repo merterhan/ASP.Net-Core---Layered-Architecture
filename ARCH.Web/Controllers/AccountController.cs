@@ -8,16 +8,17 @@ namespace ARCH.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<CustomIdentityUser> _userManager;
-        private readonly RoleManager<CustomIdentityRole> _roleManager;
-        private readonly SignInManager<CustomIdentityUser> _signInManager;
-        private readonly IStringLocalizer<AccountController> _localizer;
+        private UserManager<CustomIdentityUser> _userManager;
+        private RoleManager<CustomIdentityRole> _roleManager;
+        private SignInManager<CustomIdentityUser> _signInManager;
+        private IStringLocalizer<AccountController> _localizer;
 
-        public AccountController(UserManager<CustomIdentityUser> userManager, RoleManager<CustomIdentityRole> roleManager, SignInManager<CustomIdentityUser> signInManager)
+        public AccountController(UserManager<CustomIdentityUser> userManager, RoleManager<CustomIdentityRole> roleManager, SignInManager<CustomIdentityUser> signInManager, IStringLocalizer<AccountController> localizer)
         {
-            userManager = _userManager;
-            roleManager = _roleManager;
-            signInManager = _signInManager;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _signInManager = signInManager;
+            _localizer = localizer;
         }
 
         public ActionResult Register()
@@ -26,8 +27,8 @@ namespace ARCH.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken] //see surf ataklarını engellemeye çalışıyoruz
-        public ActionResult Register(RegisterViewModel registerViewModel)
+        //[ValidateAntiForgeryToken] //see surf ataklarını engellemeye çalışıyoruz
+        public IActionResult Register(RegisterViewModel registerViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +72,7 @@ namespace ARCH.Web.Controllers
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
             if (ModelState.IsValid)

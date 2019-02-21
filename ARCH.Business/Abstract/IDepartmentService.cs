@@ -5,11 +5,11 @@ using System.Text;
 
 namespace ARCH.Business.Abstract
 {
-    public interface IUserService
+    public interface IDepartmentService
     {
-        List<User> GetAll();
-        void Add(User user);
-        void Update(User user);
+        List<Department> GetAll();
+        void Add(Department department);
+        void Update(Department department);
         void Delete(Guid id);
     }
 }

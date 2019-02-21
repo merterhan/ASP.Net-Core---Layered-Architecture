@@ -6,8 +6,8 @@ using ARCH.Entities.Concrete;
 
 namespace ARCH.Web.Areas.Shared.Models
 {
-    public class UserListViewModel
+    public class DepartmentListViewModel
     {
-        public List<User> User { get; internal set; }
+        public List<Department> Department { get; internal set; }
     }
 }

@@ -30,7 +30,7 @@
     <link href="~/pages/css/pages-icons.css" rel="stylesheet" type="text/css">
     <link class="main-stylesheet" href="~/pages/css/pages.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
-    window.onload = function () {
+        window.onload = function () {
             // fix for windows 8
             if (navigator.appVersion.indexOf("Windows NT 6.2") != -1)
                 document.head.innerHTML += '<link rel="stylesheet" type="text/css" href="pages/css/windows.chrome.fix.css" />'
@@ -80,6 +80,7 @@
                         </div>
                         <div class="col-md-6 d-flex align-items-center justify-content-end">
                             <a href="#" class="text-info small">@Localizer["Forgot Password"]</a>
+                            <a asp-controller="Account" asp-action="Register" class="text-info small">Üye Ol</a>
                         </div>
                     </div>
                     <button class="btn btn-primary btn-cons m-t-10" type="submit" value="Login">@Localizer["Login"]</button>
@@ -120,7 +121,7 @@
     <script src="~/assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
     <script src="~/pages/js/pages.min.js"></script>
     <script>
-    $(function () {
+        $(function () {
             $('#form-login').validate()
         })</script>
 </body>

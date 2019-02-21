@@ -4,7 +4,7 @@ using ARCH.Entities.Concrete;
 
 namespace ARCH.DataAccess.Concrete.EntityFramework
 {
-    public class EFUserDal : EFRepository<User, ARCHContext>, IUserDal
+    public class EFDepartmentDal : EFRepository<Department, ARCHContext>, IDepartmentDal
     {
     }
 }

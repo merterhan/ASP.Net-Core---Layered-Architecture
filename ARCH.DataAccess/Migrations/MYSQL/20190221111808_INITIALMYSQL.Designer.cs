@@ -3,21 +3,21 @@ using System;
 using ARCH.DataAccess.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ARCH.DataAccess.Migrations
+namespace ARCH.DataAccess.Migrations.MYSQL
 {
-    [DbContext(typeof(ARCHContext))]
-    partial class ARCHContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(MYSQLContext))]
+    [Migration("20190221111808_INITIALMYSQL")]
+    partial class INITIALMYSQL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("ARCH.Entities.Concrete.Department", b =>
                 {

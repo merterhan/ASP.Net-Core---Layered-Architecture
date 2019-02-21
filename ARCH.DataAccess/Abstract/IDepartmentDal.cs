@@ -3,7 +3,7 @@ using ARCH.Entities.Concrete;
 
 namespace ARCH.DataAccess.Abstract
 {
-    public interface IUserDal : IRepository<User>
+    public interface IDepartmentDal : IRepository<Department>
     {
         //custom operation like call stored procedure, or views, or join queries
     }

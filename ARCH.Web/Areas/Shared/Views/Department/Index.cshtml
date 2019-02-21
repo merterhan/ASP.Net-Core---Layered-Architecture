@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ARCH.Entities.Concrete.User>
+﻿@model IEnumerable<ARCH.Entities.Concrete.Department>
 
 @{
     ViewData["Title"] = "Index";
@@ -27,19 +27,13 @@
                             </button>
                         </th>
                         <th style="width:20%">
-                            @Html.DisplayNameFor(model => model.FirstName)
+                            @Html.DisplayNameFor(model => model.ManagerId)
                         </th>
                         <th style="width:20%">
-                            @Html.DisplayNameFor(model => model.LastName)
+                            @Html.DisplayNameFor(model => model.Name)
                         </th>
                         <th style="width:29%">
-                            @Html.DisplayNameFor(model => model.FirstName)
-                        </th>
-                        <th style="width:15%">
-                            @Html.DisplayNameFor(model => model.BirthDate)
-                        </th>
-                        <th style="width:15%">
-                            @Html.DisplayNameFor(model => model.Email)
+                            @Html.DisplayNameFor(model => model.Phone)
                         </th>
                     </tr>
                 </thead>

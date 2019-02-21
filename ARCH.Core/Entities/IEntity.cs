@@ -9,5 +9,9 @@ namespace ARCH.Core.Entities
     {
         [Key]
         Guid Id { get; }
+        DateTime CreatedOn { get; set; }
+        DateTime? ChangedOn { get; set; }
+        string CreatedBy { get; set; }
+        Guid? ChangedBy { get; set; }
     }
 }

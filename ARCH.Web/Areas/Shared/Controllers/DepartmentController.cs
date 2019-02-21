@@ -13,22 +13,22 @@ using ARCH.Web.Areas.Shared.Models;
 namespace ARCH.Web.Areas.Shared.Controllers
 {
     [Area("Shared")]
-    public class UserController : Controller
+    public class DepartmentController : Controller
     {
-        private IUserService _userService;
+        private IDepartmentService _departmentService;
 
-        public UserController(IUserService userService)
+        public DepartmentController(IDepartmentService departmentService)
         {
-            _userService = userService;
+            _departmentService = departmentService;
         }
 
         public ActionResult Index()
         {
-            var users = _userService.GetAll();
+            var departments = _departmentService.GetAll();
 
-            UserListViewModel model = new UserListViewModel
+            DepartmentListViewModel model = new DepartmentListViewModel
             {
-                User = users
+                Department = departments
             };
 
             return View(model);
