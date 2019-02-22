@@ -65,11 +65,17 @@ namespace ARCH.Web
             services.AddSession();
             services.AddDistributedMemoryCache();
 
-            //services.AddDbContext<CustomIdentityDbContext>(options => options.UseSqlServer(@"Data Source=10.1.1.78;Initial Catalog=TESTCORE;User ID=TCDDFiberTitresim_User;Password=1qaz-2wsx."));
-            services.AddDbContext<CustomIdentityDbContext>(options => options.UseMySql(@"Server=89.163.242.38;Port=3306;Database=cagrierh_coredb;Uid=cagrierh_admin;Pwd=cagri123456;"));
+            //services.AddDbContext<CustomIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("infoline-10.1.1.78")));
+            services.AddDbContext<CustomIdentityDbContext>(options => options.UseMySql(Configuration.GetConnectionString("cagrierhan.com/cagrierh_coredb")));
 
             services.AddIdentity<CustomIdentityUser, CustomIdentityRole>().AddEntityFrameworkStores<CustomIdentityDbContext>()
                 .AddDefaultTokenProviders(); //kullanıcı bilgilerinin sayfalar arası geçiş yaparken kullandığı bir servis
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireNonAlphanumeric = false;
+            });
 
         }
 

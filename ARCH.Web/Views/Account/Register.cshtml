@@ -54,8 +54,8 @@
                     <div class="col-md-12">
                         <div class="form-group form-group-default">
                             <label asp-for="UserName">@Localizer["User Name"]</label>
-                            <input asp-for="UserName" type="text" placeholder="@Localizer["User Name"]" class="form-control" required>
-                            <span asp-validation-for="UserName"></span>
+                            <input asp-for="UserName" type="text" placeholder="@Localizer["User Name"]" class="form-control">
+                            <label asp-validation-for="UserName"></label>
                         </div>
                     </div>
                 </div>
@@ -63,8 +63,17 @@
                     <div class="col-md-12">
                         <div class="form-group form-group-default">
                             <label asp-for="Password">@Localizer["Password"]</label>
-                            <input asp-for="Password" type="password" placeholder="En az 4 karakterli bir şifre oluştun" class="form-control" required>
-                            <span asp-validation-for="Password"></span>
+                            <input asp-for="Password" type="password" placeholder="En az 4 karakterli bir şifre oluştun" class="form-control">
+                            <span class="error" asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group form-group-default">
+                            <label asp-for="ConfirmPassword">@Localizer["Confirm Password"]</label>
+                            <input asp-for="ConfirmPassword" type="password" placeholder="Şifreyi tekrar giriniz" class="form-control">
+                            <span class="error" asp-validation-for="ConfirmPassword" class="error"></span>
                         </div>
                     </div>
                 </div>
@@ -72,7 +81,7 @@
                     <div class="col-md-12">
                         <div class="form-group form-group-default">
                             <label asp-for="Email">@Localizer["Email"]</label>
-                            <input asp-for="Email" type="email" placeholder="Size giriş bilgilerinizi göndereceğiz" class="form-control" required>
+                            <input asp-for="Email" type="email" placeholder="Size giriş bilgilerinizi göndereceğiz" class="form-control">
                             <span asp-validation-for="Email"></span>
                         </div>
                     </div>

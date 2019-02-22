@@ -36,7 +36,7 @@ namespace ARCH.Web.Controllers
                 {
                     UserName = registerViewModel.UserName,
                     Email = registerViewModel.Email,
-                    PhoneNumber =  registerViewModel.PhoneNumber
+                    PhoneNumber = registerViewModel.PhoneNumber
                 };
 
                 IdentityResult result = _userManager.CreateAsync(user, registerViewModel.Password).Result;
@@ -61,6 +61,15 @@ namespace ARCH.Web.Controllers
 
                     _userManager.AddToRoleAsync(user, "Admin").Wait();
                     return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("Password", error.Description);
+                    }
+
+                    return View(registerViewModel);
                 }
             }
 
