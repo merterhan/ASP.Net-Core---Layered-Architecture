@@ -12,6 +12,8 @@ namespace ARCH.Core.DataAccess
 
         IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null);
 
+        IQueryable<T> GetAllAsNoTracking(Expression<Func<T, bool>> filter = null);
+
         T GetById(Guid id);
 
         void Add(T entity);

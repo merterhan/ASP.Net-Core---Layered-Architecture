@@ -11,7 +11,6 @@ namespace ARCH.Core.DataAccess.EntityFrameworkCore
     where TEntity : class, IEntity, new()
     where TContext : DbContext, new()
     {
-
         public void Add(TEntity entity)
         {
             using (var context = new TContext())
@@ -20,7 +19,18 @@ namespace ARCH.Core.DataAccess.EntityFrameworkCore
                 addedEntity.State = EntityState.Added;
 
                 context.SaveChanges();
-            }  
+            }
+        }
+
+        public void Update(TEntity entity)
+        {
+            using (var context = new TContext())
+            {
+                var updatedEntity = context.Entry(entity);
+                updatedEntity.State = EntityState.Modified;
+
+                context.SaveChanges();
+            }
         }
 
         public void Delete(TEntity entity)
@@ -47,33 +57,27 @@ namespace ARCH.Core.DataAccess.EntityFrameworkCore
             }
         }
 
-        public IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
-        {
-            throw new NotImplementedException();
-        }
-
         public TEntity GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null)
         {
             using (var context = new TContext())
             {
-                return filter == null ? context.Set<TEntity>().ToList() : context.Set<TEntity>().Where(filter).ToList();
+                return context.Set<TEntity>().Find(id);
             }
-            
         }
 
-        public void Update(TEntity entity)
+        public IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
-            using (var context = new  TContext())
+            using (var context = new TContext())
             {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
+                return filter == null ? context.Set<TEntity>() : context.Set<TEntity>().Where(filter);
+            }
+        }
 
-                context.SaveChanges();
+        public IQueryable<TEntity> GetAllAsNoTracking(Expression<Func<TEntity, bool>> filter = null)
+        {
+            using (var context = new TContext())
+            {
+                return filter == null ? context.Set<TEntity>().AsNoTracking() : context.Set<TEntity>().AsNoTracking().Where(filter);
             }
         }
     }
