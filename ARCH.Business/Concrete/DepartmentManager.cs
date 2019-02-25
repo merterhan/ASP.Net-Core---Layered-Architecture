@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ARCH.Business.Abstract;
 using ARCH.DataAccess.Abstract;
@@ -30,12 +31,12 @@ namespace ARCH.Business.Concrete
 
         public List<Department> GetAll()
         {
-            return _departmentDal.GetList();
+            return _departmentDal.GetAll().ToList();
         }
 
         public void Update(Department department)
         {
-            throw new NotImplementedException();
+            _departmentDal.Update(department);
         }
     }
 }
