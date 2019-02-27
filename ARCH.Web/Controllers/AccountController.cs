@@ -1,5 +1,7 @@
-﻿using ARCH.Web.Entities;
+﻿using System.Security.Claims;
+using ARCH.Web.Entities;
 using ARCH.Web.Models;
+using ARCH.Web.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -12,13 +14,19 @@ namespace ARCH.Web.Controllers
         private RoleManager<CustomIdentityRole> _roleManager;
         private SignInManager<CustomIdentityUser> _signInManager;
         private IStringLocalizer<AccountController> _localizer;
+        private ISessionService _sessionService;
 
-        public AccountController(UserManager<CustomIdentityUser> userManager, RoleManager<CustomIdentityRole> roleManager, SignInManager<CustomIdentityUser> signInManager, IStringLocalizer<AccountController> localizer)
+        public AccountController(UserManager<CustomIdentityUser> userManager,
+                                 RoleManager<CustomIdentityRole> roleManager,
+                                 SignInManager<CustomIdentityUser> signInManager,
+                                 IStringLocalizer<AccountController> localizer,
+                                 ISessionService sessionService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _localizer = localizer;
+            _sessionService = sessionService;
         }
 
         public ActionResult Register()
@@ -91,9 +99,14 @@ namespace ARCH.Web.Controllers
 
                 if (result.Succeeded)
                 {
+                    //get user and set it to session
+                    var user = _userManager.FindByNameAsync(loginViewModel.UserName).Result;
+                    _sessionService.SetUser(user);
+
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Invalid Login!");
+
+                ModelState.AddModelError(string.Empty, "Invalid Login!");
             }
             return View(loginViewModel);
         }

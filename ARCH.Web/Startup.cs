@@ -8,6 +8,7 @@ using ARCH.Business.Concrete;
 using ARCH.DataAccess.Abstract;
 using ARCH.DataAccess.Concrete.EntityFramework;
 using ARCH.Web.Entities;
+using ARCH.Web.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -61,9 +62,12 @@ namespace ARCH.Web
             //transient: A kullanıcısı aynı anda iki XXManager'a ihtiyaç duyarsa.Onun için aynı XXManager oluşturuluğ değiştirilir.
             //Transient'te aynı kullanıcı aynı anda tek requestte iki XXManager'a ihtiyaç duyarsa iki ayrı PM Oluşturulur.
 
+
             //uygulamada session kullanacağımız bilgisini oluşturalum
             services.AddSession();
             services.AddDistributedMemoryCache();
+            services.AddSingleton<ISessionService, SessionService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //services.AddDbContext<CustomIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("infoline-10.1.1.78")));
             services.AddDbContext<CustomIdentityDbContext>(options => options.UseMySql(Configuration.GetConnectionString("cagrierhan.com/cagrierh_coredb")));
@@ -73,6 +77,7 @@ namespace ARCH.Web
 
             services.Configure<IdentityOptions>(options =>
             {
+
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireNonAlphanumeric = false;
             });
@@ -136,6 +141,7 @@ namespace ARCH.Web
 
             //session orta-katmanını projeye ekleyelim
             app.UseSession();
+            //aspnet identity middleware'inin eklenmesi
             app.UseAuthentication();
         }
     }
