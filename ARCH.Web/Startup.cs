@@ -123,6 +123,10 @@ namespace ARCH.Web
                 }
             });
             //end_Localization
+            app.UseSession();
+            //session orta-katmanını projeye ekleyelim
+            //aspnet identity middleware'inin eklenmesi
+            app.UseAuthentication();
 
             //default olarak Home/Index'e gider
             //app.UseMvcWithDefaultRoute();
@@ -138,11 +142,6 @@ namespace ARCH.Web
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
-
-            //session orta-katmanını projeye ekleyelim
-            app.UseSession();
-            //aspnet identity middleware'inin eklenmesi
-            app.UseAuthentication();
         }
     }
 }

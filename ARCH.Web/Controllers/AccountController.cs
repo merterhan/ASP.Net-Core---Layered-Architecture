@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Linq;
+using System.Security.Claims;
 using ARCH.Web.Entities;
 using ARCH.Web.Models;
 using ARCH.Web.Service;
@@ -113,8 +114,14 @@ namespace ARCH.Web.Controllers
 
         public ActionResult LogOff()
         {
+            HttpContext.Session.Clear();
             _signInManager.SignOutAsync().Wait();
             return RedirectToAction("Login");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }
