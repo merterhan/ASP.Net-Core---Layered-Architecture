@@ -10,7 +10,7 @@ namespace ARCH.DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql(@"Server=89.163.242.38;Port=3306;Database=cagrierh_coredb;Uid=cagrierh_admin;Pwd=cagri123456;");
+            optionsBuilder.UseMySql(@"Server=89.163.242.38;Port=3306;Database=cagrierh_coredb;Uid=****;Pwd=****;");
         }
 
         public DbSet<Department> Department { get; set; }
