@@ -272,7 +272,7 @@
                     </li>
                 </ul>
 
-                <a href="#" class="search-link d-lg-inline-block d-none" data-toggle="search"><i class="pg-search"></i>Type anywhere to <span class="bold">search</span></a>
+                <a href="#" class="search-link d-lg-inline-block d-none" data-toggle="search"><i class="pg-search"></i> <span class="bold">Arama</span> yapmak için yazınız...</a>
             </div>
             <div class="d-flex align-items-center">
 
@@ -324,21 +324,21 @@
     <div id="quickview" class="quickview-wrapper" data-pages="quickview">
 
         <ul class="nav nav-tabs" role="tablist">
-            <li class="">
-                <a href="#quickview-notes" data-target="#quickview-notes" data-toggle="tab" role="tab">Notes</a>
-            </li>
+            @*<li class="">
+                <a href="#quickview-notes" data-target="#quickview-notes" data-toggle="tab" role="tab">Not</a>
+            </li>*@
             <li>
-                <a href="#quickview-alerts" data-target="#quickview-alerts" data-toggle="tab" role="tab">Alerts</a>
+                <a href="#quickview-alerts" data-target="#quickview-alerts" data-toggle="tab" role="tab">Bildirimler</a>
             </li>
             <li class="">
-                <a class="active" href="#quickview-chat" data-toggle="tab" role="tab">Chat</a>
+                <a class="active" href="#quickview-chat" data-toggle="tab" role="tab">Sohbet</a>
             </li>
         </ul>
         <a class="btn-link quickview-toggle" data-toggle-element="#quickview" data-toggle="quickview"><i class="pg-close"></i></a>
 
         <div class="tab-content">
 
-            <div class="tab-pane no-padding" id="quickview-notes">
+            @*<div class="tab-pane no-padding" id="quickview-notes">
                 <div class="view-port clearfix quickview-notes" id="note-views">
 
                     <div class="view list" id="quick-note-list">
@@ -501,7 +501,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
 
             <div class="tab-pane no-padding" id="quickview-alerts">
@@ -658,7 +658,7 @@
                                 </a>
 
                                 <div class="view-heading">
-                                    Chat List
+                                    Sohbet Listesi
                                     <div class="fs-11">Show All</div>
                                 </div>
 
@@ -1290,7 +1290,7 @@
                                 </a>
                                 <div class="view-heading">
                                     John Smith
-                                    <div class="fs-11 hint-text">Online</div>
+                                    <div class="fs-11 hint-text">Çevrimiçi</div>
                                 </div>
                                 <a href="#" class="link text-master inline action p-r-10 pull-right ">
                                     <i class="pg-more"></i>
@@ -1350,7 +1350,7 @@
                                     <a href="#" class="link text-master"><i class="fa fa-plus-circle"></i></a>
                                 </div>
                                 <div class="col-8 no-padding">
-                                    <input type="text" class="form-control chat-input" data-chat-input="" data-chat-conversation="#my-conversation" placeholder="Say something">
+                                    <input type="text" class="form-control chat-input" data-chat-input="" data-chat-conversation="#my-conversation" placeholder="Birşeyler söyle">
                                 </div>
                                 <div class="col-2 link text-master m-l-10 m-t-15 p-l-10 b-l b-grey col-top">
                                     <a href="#" class="link text-master"><i class="pg-camera"></i></a>
@@ -1361,7 +1361,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div>O
         </div>
     </div>
 
@@ -1382,23 +1382,23 @@
 
             <div class="container-fluid">
 
-                <input id="overlay-search" class="no-border overlay-search bg-transparent" placeholder="Search..." autocomplete="off" spellcheck="false">
+                <input id="overlay-search" class="no-border overlay-search bg-transparent" placeholder="Ara..." autocomplete="off" spellcheck="false">
                 <br>
                 <div class="inline-block">
                     <div class="checkbox right">
                         <input id="checkboxn" type="checkbox" value="1" checked="checked">
-                        <label for="checkboxn"><i class="fa fa-search"></i> Search within page</label>
+                        <label for="checkboxn"><i class="fa fa-search"></i> Sayfa içerisinde ara</label>
                     </div>
                 </div>
                 <div class="inline-block m-l-10">
-                    <p class="fs-13">Press enter to search</p>
+                    <p class="fs-13">Arama yapmak için enter'a basınız</p>
                 </div>
 
             </div>
 
             <div class="container-fluid">
                 <span>
-                    <strong>suggestions :</strong>
+                    <strong>öneriler :</strong>
                 </span>
                 <span id="overlay-suggestions"></span>
                 <br>

@@ -57,6 +57,22 @@ namespace ARCH.Core.DataAccess.EntityFrameworkCore
             }
         }
 
+        public List<TEntity> GetListAsNoTracking(Expression<Func<TEntity, bool>> filter = null)
+        {
+            using (var context = new TContext())
+            {
+                return filter == null ? context.Set<TEntity>().AsNoTracking().ToList() : context.Set<TEntity>().Where(filter).AsNoTracking().ToList();
+            }
+        }
+
+        public List<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null)
+        {
+            using (var context = new TContext())
+            {
+                return filter == null ? context.Set<TEntity>().ToList() : context.Set<TEntity>().Where(filter).ToList();
+            }
+        }
+
         public TEntity GetById(Guid id)
         {
             using (var context = new TContext())
@@ -65,20 +81,20 @@ namespace ARCH.Core.DataAccess.EntityFrameworkCore
             }
         }
 
-        public IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
-        {
-            using (var context = new TContext())
-            {
-                return filter == null ? context.Set<TEntity>() : context.Set<TEntity>().Where(filter);
-            }
-        }
+        //public IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
+        //{
+        //    using (var context = new TContext())
+        //    {
+        //        return filter == null ? context.Set<TEntity>().AsQueryable() : context.Set<TEntity>().Where(filter).AsQueryable();
+        //    }
+        //}
 
-        public IQueryable<TEntity> GetAllAsNoTracking(Expression<Func<TEntity, bool>> filter = null)
-        {
-            using (var context = new TContext())
-            {
-                return filter == null ? context.Set<TEntity>().AsNoTracking() : context.Set<TEntity>().AsNoTracking().Where(filter);
-            }
-        }
+        //public IQueryable<TEntity> GetAllAsNoTracking(Expression<Func<TEntity, bool>> filter = null)
+        //{
+        //    using (var context = new TContext())
+        //    {
+        //        return filter == null ? context.Set<TEntity>().AsNoTracking() : context.Set<TEntity>().AsNoTracking().Where(filter);
+        //    }
+        //}
     }
 }

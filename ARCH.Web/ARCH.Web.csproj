@@ -24,8 +24,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Shared\Data\" />
+    <Folder Include="Pages\" />
     <Folder Include="Resources\ViewModels\" />
-    <Folder Include="TagHelpers\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

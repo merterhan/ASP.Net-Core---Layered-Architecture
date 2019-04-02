@@ -8,6 +8,7 @@ using ARCH.Business.Concrete;
 using ARCH.DataAccess.Abstract;
 using ARCH.DataAccess.Concrete.EntityFramework;
 using ARCH.Web.Entities;
+using ARCH.Web.Middlewares;
 using ARCH.Web.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,11 +36,12 @@ namespace ARCH.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
             //servis yapılandırmaları yapılır. servis bağımlıllıkları buraya eklenir.
             //controller'ın ihtiyaç duyduğu servisler burada gerçekleştirilir.
             //dependency injection burada gerçekleştiriliyor.
 
-            services.AddDbContext<ARCHContext>();
+            //services.AddDbContext<ARCHContext>();
             //Localization
             services.AddLocalization(o => o.ResourcesPath = "Resources");
             services.AddMvc()
@@ -49,9 +51,9 @@ namespace ARCH.Web
 
             //dependency injection desenini yapılandıralım. servisleri buraya ekleyeceğiz.
             //IXXservice isteyen bir controller varsa ona XXManager örneği oluştur ona ver. sen new'le.
-            services.AddScoped<IDepartmentService, DepartmantManager>();
-            services.AddScoped<IDepartmentDal, EFDepartmentDal>();
 
+            services.AddScoped<IDepartmentService, DepartmentManager>();
+            services.AddScoped<IDepartmentDal, EFDepartmentDal>();
             //servisler transient, scoped veya singleton olabilir. 
             //servisler singleton olarak tanımlansaydı: iki kullanıcı sunucuya istek bulunduğu zaman manager örneği oluşturur.
             //b kullanıcısı da aynı nesneyi kullanır. her kullanıcı bu tanımlanan singleton nesneyi oluşturur.
@@ -68,6 +70,8 @@ namespace ARCH.Web
             services.AddDistributedMemoryCache();
             services.AddSingleton<ISessionService, SessionService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
 
             //services.AddDbContext<CustomIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("infoline-10.1.1.78")));
             services.AddDbContext<CustomIdentityDbContext>(options => options.UseMySql(Configuration.GetConnectionString("cagrierhan.com/cagrierh_coredb")));
@@ -94,7 +98,9 @@ namespace ARCH.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
+            app.UseFileServer();
+            app.UseNodeModules(env.ContentRootPath);
+                
 
             //Localization
             IList<CultureInfo> supportedCultures = new List<CultureInfo>
@@ -123,25 +129,24 @@ namespace ARCH.Web
                 }
             });
             //end_Localization
-            app.UseSession();
-            //session orta-katmanını projeye ekleyelim
+            
             //aspnet identity middleware'inin eklenmesi
             app.UseAuthentication();
+
+            app.UseSession();
+            //session orta-katmanını projeye ekleyelim
 
             //default olarak Home/Index'e gider
             //app.UseMvcWithDefaultRoute();
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            app.UseMvc(routes =>
-            {
                 routes.MapRoute(
                     name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             });
+
+
         }
     }
 }

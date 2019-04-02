@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Security.Claims;
-using ARCH.Web.Entities;
+﻿using ARCH.Web.Entities;
 using ARCH.Web.Models;
 using ARCH.Web.Service;
 using Microsoft.AspNetCore.Identity;
@@ -11,11 +9,11 @@ namespace ARCH.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private UserManager<CustomIdentityUser> _userManager;
-        private RoleManager<CustomIdentityRole> _roleManager;
-        private SignInManager<CustomIdentityUser> _signInManager;
-        private IStringLocalizer<AccountController> _localizer;
-        private ISessionService _sessionService;
+        private readonly UserManager<CustomIdentityUser> _userManager;
+        private readonly RoleManager<CustomIdentityRole> _roleManager;
+        private readonly SignInManager<CustomIdentityUser> _signInManager;
+        private readonly IStringLocalizer<AccountController> _localizer;
+        private readonly ISessionService _sessionService;
 
         public AccountController(UserManager<CustomIdentityUser> userManager,
                                  RoleManager<CustomIdentityRole> roleManager,

@@ -10,9 +10,13 @@ namespace ARCH.Core.DataAccess
     {
         T Get(Expression<Func<T, bool>> filter = null);
 
-        IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null);
+        //IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null);
 
-        IQueryable<T> GetAllAsNoTracking(Expression<Func<T, bool>> filter = null);
+        //IQueryable<T> GetAllAsNoTracking(Expression<Func<T, bool>> filter = null);
+
+        List<T> GetListAsNoTracking(Expression<Func<T, bool>> filter = null);
+
+        List<T> GetList(Expression<Func<T, bool>> filter = null);
 
         T GetById(Guid id);
 

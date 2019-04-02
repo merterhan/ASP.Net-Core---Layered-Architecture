@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ARCH.Business.Abstract;
 using ARCH.DataAccess.Abstract;
 using ARCH.Entities.Concrete;
 
 namespace ARCH.Business.Concrete
 {
-    public class DepartmantManager : IDepartmentService
+    public class DepartmentManager : IDepartmentService
     {
         //dependency injection
-        private IDepartmentDal _departmentDal;
+        private readonly IDepartmentDal _departmentDal;
 
-        public DepartmantManager(IDepartmentDal departmentDal)
+        public DepartmentManager(IDepartmentDal departmentDal)
         {
             _departmentDal = departmentDal;
         }
         //end dependency injection
+
+        public List<Department> GetList()
+        {
+            var list = _departmentDal.GetListAsNoTracking();
+            return list;
+        }
 
         public void Add(Department department)
         {
@@ -27,11 +31,6 @@ namespace ARCH.Business.Concrete
         public void Delete(Guid id)
         {
             _departmentDal.Delete(new Department(){ Id = id});
-        }
-
-        public List<Department> GetAll()
-        {
-            return _departmentDal.GetAll().ToList();
         }
 
         public void Update(Department department)

@@ -9,22 +9,25 @@ using ARCH.DataAccess.Concrete.EntityFramework;
 using ARCH.Entities.Concrete;
 using ARCH.Business.Abstract;
 using ARCH.Web.Areas.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ARCH.Web.Areas.Shared.Controllers
 {
     [Area("Shared")]
+    [Authorize(Roles = "Admin")]
     public class DepartmentController : Controller
     {
-        private IDepartmentService _departmentService;
+        private readonly IDepartmentService _departmentService;
 
         public DepartmentController(IDepartmentService departmentService)
         {
             _departmentService = departmentService;
         }
 
+        [AllowAnonymous]
         public ActionResult Index()
         {
-            var departments = _departmentService.GetAll();
+            var departments = _departmentService.GetList();
 
             DepartmentListViewModel model = new DepartmentListViewModel
             {

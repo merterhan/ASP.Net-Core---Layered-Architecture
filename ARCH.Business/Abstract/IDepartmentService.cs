@@ -7,7 +7,7 @@ namespace ARCH.Business.Abstract
 {
     public interface IDepartmentService
     {
-        List<Department> GetAll();
+        List<Department> GetList();
         void Add(Department department);
         void Update(Department department);
         void Delete(Guid id);

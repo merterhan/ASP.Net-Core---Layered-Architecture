@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ARCH.Entities.Concrete.Department>
+﻿@model ARCH.Web.Areas.Shared.Models.DepartmentListViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -27,13 +27,13 @@
                             </button>
                         </th>
                         <th style="width:20%">
-                            @Html.DisplayNameFor(model => model.ManagerId)
+                            @*@Html.DisplayNameFor(model => model.Department.)*@
                         </th>
                         <th style="width:20%">
-                            @Html.DisplayNameFor(model => model.Name)
+                            @*@Html.DisplayNameFor(model => model.Name)*@
                         </th>
                         <th style="width:29%">
-                            @Html.DisplayNameFor(model => model.Phone)
+                            @*@Html.DisplayNameFor(model => model.Phone)*@
                         </th>
                     </tr>
                 </thead>

@@ -1,0 +1,24 @@
+﻿@model ARCH.Web.Models.UserListViewModel
+
+<table class="table table-hover" id="basicTable">
+    <thead>
+    <tr>
+        <th style="width:20%">Kullanıcı Adı</th>
+        <th style="width:20%">Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td class="v-align-middle">
+                @user.UserName
+            </td>
+            <td class="v-align-middle">
+                @user.Email
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<pager page-size="@Model.PageSize" page-count="@Model.PageCount" route="/Home/Index" current-page="@Model.CurrentPage"></pager>
